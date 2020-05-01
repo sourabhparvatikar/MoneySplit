@@ -6,15 +6,11 @@ def default_for_modified_datetime(context):
     return context.get_current_parameters()['created_datetime']
 
 
-class User(db.Model):
-    """Data model for user accounts."""
+class Groups(db.Model):
 
-    __tablename__ = 'user'
+    __tablename__ = 'friend_groups'
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(64), nullable=False)
-    last_name = db.Column(db.String(64), nullable=False)
-    email = db.Column(db.String(80), nullable=False)
-    password_hash = db.Column(db.String(128), nullable=False)
+    name = db.Column(db.String(64), nullable=False)
     created_datetime = db.Column(db.DateTime, nullable=False,
                                  default=datetime.now())
     modified_datetime = db.Column(db.DateTime, nullable=False,

@@ -1,6 +1,5 @@
-from backend import app, db
-from backend.models import User
-from datetime import datetime
+from backend import app
+
 
 @app.route('/')
 def index():
