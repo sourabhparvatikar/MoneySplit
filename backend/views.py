@@ -1,6 +1,7 @@
-from backend import app
+from flask_restful import Resource
 
 
-@app.route('/')
-def index():
-    return "Hello, World!"
+class HelloWorld(Resource):
+
+    def get(self):
+        return "Hello, World!"
