@@ -1,7 +1,11 @@
+from datetime import datetime
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship
 
 from backend import db
+
+
+def default_for_modified_datetime(context):
+    return context.get_current_parameters()['created_datetime']
 
 
 class UserGroup(db.Model):
@@ -10,18 +14,16 @@ class UserGroup(db.Model):
     id = db.Column(db.Integer,
                    primary_key=True)
     user_id = db.Column(db.Integer,
-                        ForeignKey('user.id', ondelete='CASCADE'), nullable=False, )
+                        ForeignKey('user.id', ondelete='CASCADE'),
+                        nullable=False)
 
-    group_id = db.Column(db.Integer, ForeignKey('friend_groups.id', ondelete='CASCADE'), nullable=False)
+    group_id = db.Column(db.Integer,
+                         ForeignKey('friend_groups.id', ondelete='CASCADE'),
+                         nullable=False)
 
     access = db.Column(db.Enum("moderator", "participant"), nullable=False)
 
-    created_datetime = db.Column(db.DateTime,
-                                 index=False,
-                                 unique=False,
-                                 nullable=False)
-
-    modified_datetime = db.Column(db.DateTime,
-                                  index=False,
-                                  unique=False,
-                                  nullable=False)
+    created_datetime = db.Column(db.DateTime, nullable=False,
+                                 default=datetime.now())
+    modified_datetime = db.Column(db.DateTime, nullable=False,
+                                  default=default_for_modified_datetime)

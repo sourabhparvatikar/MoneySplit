@@ -1,6 +1,13 @@
+from datetime import datetime
+
 from sqlalchemy import ForeignKey
 
 from backend import db
+
+
+def default_for_modified_datetime(context):
+    return context.get_current_parameters()['created_datetime']
+
 
 class Transactions(db.Model):
     """Creating model for transactions table"""
@@ -18,16 +25,11 @@ class Transactions(db.Model):
                          ForeignKey('user.id', ondelete='CASCADE'),
                          nullable=False)
 
-    amount = db.column(db.Float, nullable=False)
+    amount = db.Column(db.Float, nullable=False)
 
-    done = db.column(db.Enum("Y", "N"))
+    done = db.Column(db.Enum("Y", "N"))
 
-    created_datetime = db.Column(db.DateTime,
-                                 index=False,
-                                 unique=False,
-                                 nullable=False)
-
-    modified_datetime = db.Column(db.DateTime,
-                                  index=False,
-                                  unique=False,
-                                  nullable=False)
+    created_datetime = db.Column(db.DateTime, nullable=False,
+                                 default=datetime.now())
+    modified_datetime = db.Column(db.DateTime, nullable=False,
+                                  default=default_for_modified_datetime)
