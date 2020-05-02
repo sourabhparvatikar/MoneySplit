@@ -28,7 +28,10 @@ class Transactions(db.Model):
     amount = db.Column(db.Float, nullable=False)
 
     done = db.Column(db.Enum("Y", "N"))
-
+    group = db.Column(db.Integer,
+                      ForeignKey('friend_groups.id', ondelete='CASCADE'),
+                      default=0)
+    valid = db.Column(db.Enum("Y", "N"), server_default="Y")
     created_datetime = db.Column(db.DateTime, nullable=False,
                                  default=datetime.now())
     modified_datetime = db.Column(db.DateTime, nullable=False,
