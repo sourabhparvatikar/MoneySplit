@@ -1,4 +1,4 @@
-from backend import app
+from backend import app, db
 
 
 @app.route('/')
