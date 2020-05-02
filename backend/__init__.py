@@ -1,13 +1,11 @@
-from os import environ # noqa
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from backend import config # noqa
 
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = \
-    'mysql+pymysql://root:MoneySplit123@localhost/moneysplit'
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config.from_object(config.Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
