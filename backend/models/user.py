@@ -19,3 +19,7 @@ class User(db.Model):
                                  default=datetime.now())
     modified_datetime = db.Column(db.DateTime, nullable=False,
                                   default=default_for_modified_datetime)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()

@@ -16,3 +16,7 @@ class Groups(db.Model):
     modified_datetime = db.Column(db.DateTime, nullable=False,
                                   default=default_for_modified_datetime)
     deleted = db.Column(db.Enum("Y", "N"), server_default="N")
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
