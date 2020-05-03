@@ -20,3 +20,7 @@ class Groups(db.Model):
     creator = db.Column(db.Integer,
                         ForeignKey('user.id', ondelete='CASCADE'),
                         nullable=False)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
