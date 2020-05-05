@@ -20,7 +20,6 @@ class Events(db.Model):
     created_datetime = db.Column(db.DateTime, nullable=False,
                                  default=datetime.now())
 
-
-def save(self):
-    db.session.add(self)
-    db.session.commit()
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
