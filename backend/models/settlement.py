@@ -25,13 +25,13 @@ class Settlement(db.Model):
                       nullable=False)
 
     amount = db.Column(db.Float, nullable=False)
-    is_settled = db.Column(db.Enum("Y", "N"), server_default="N", nullable=False)
+    is_settled = db.Column(db.Enum("Y", "N"), server_default="N",
+                           nullable=False)
     created_datetime = db.Column(db.DateTime, nullable=False,
                                  default=datetime.now())
     modified_datetime = db.Column(db.DateTime, nullable=False,
                                   default=default_for_modified_datetime)
 
-
-def save(self):
-    db.session.add(self)
-    db.session.commit()
+    def save(self):
+        db.session.add(self)
+        db.session.commit()

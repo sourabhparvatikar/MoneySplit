@@ -16,7 +16,6 @@ class Transactions(db.Model):
 
     id = db.Column(db.Integer,
                    primary_key=True)
-
     payer = db.Column(db.Integer,
                       ForeignKey('user.id', ondelete='CASCADE'),
                       nullable=False)
@@ -28,6 +27,9 @@ class Transactions(db.Model):
     amount = db.Column(db.Float, nullable=False)
 
     reason = db.Column(db.String(64), nullable=False)
+    event = db.Column(db.Integer,
+                      ForeignKey('eventlog.id', ondelete='CASCADE'),
+                      nullable=False)
     group = db.Column(db.Integer,
                       ForeignKey('friend_groups.id', ondelete='CASCADE'),
                       nullable=False)
